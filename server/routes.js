@@ -16,7 +16,7 @@ module.exports = {
 	"/v1/functions/chinu": {
 		GET: function(req, res){
 			this.resSuccess(req, res, {
-				chinu: "happy birthdayyy"
+				chinu: "happy birthday"
 			})
 		}
 	},
