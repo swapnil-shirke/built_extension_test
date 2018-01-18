@@ -4,15 +4,15 @@ var Built = require('built-extension-sdk')
 var app = Built.App('bltc4f7ed1f03053fe8')
 .setHost("test-stag-api.built.io")
 .setProtocol("https")
-.setMasterKey('bltc88f3d42ad8a728c')
+.setMasterKey('blt1247e1bd3347ffd1')
 
-// 325c34602c3069e5c914edc80d06de03c46e31a1 - access token
+// e6cc550581df9e1358feb20ee94a64a24b21f446 - access token
 // bltc88f3d42ad8a728c - secret key
 // blt_ext_default_test - extension key
 // web hook url - https://test-stag-api.built.io/v1/extensions/blt_ext_default/redeploy?application_api_key=bltc4f7ed1f03053fe8
 
 var extensionSDK = app.Extension({
-	secret_key     : 'blt1bfd0c51fb8bfa90',
+	secret_key     : 'blt5a3da0db03e7f9eb',
 	extension_key  : 'blt_ext_default_test_app',
 	static         : __dirname + '/client',
 	routes         : require('./server/routes')
