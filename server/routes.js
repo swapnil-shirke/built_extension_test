@@ -125,24 +125,25 @@ module.exports = {
 	"/v1/classes/person/objects": {
 		GET : {
 			_pre : function(req, res) {
-				req.logger.log("Call hit from hooks in object GET")
-				return this.resSuccess(req, res)
-			}
-		},
-		POST: {
-			_pre: function(req, res) {
-				req.logger.log("Request object : " + JSON.stringify(req.bobjekt.data))
-				req.bobjekt = req.bobjekt.set("age", 44)
-				// req.bobjekt = req.bobjekt.setReferenceWhere("address", {
-				// 	"city": "Mumbai"
-				// })
-				return when.resolve()
-			},
-			_post: function(req, res) {
-				req.bobjekt['new_field'] = "new_value"
-				return when.resolve()
+				req.logger.log("Call hit from hooks in object GET : " + JSON.stringify(req.bobjekt.data))
+				return this.resSuccess(req, res, "Success")
 			}
 		}
+		// ,
+		// POST: {
+		// 	_pre: function(req, res) {
+		// 		req.logger.log("Request object : " + JSON.stringify(req.bobjekt.data))
+		// 		req.bobjekt = req.bobjekt.set("age", 44)
+		// 		// req.bobjekt = req.bobjekt.setReferenceWhere("address", {
+		// 		// 	"city": "Mumbai"
+		// 		// })
+		// 		return when.resolve()
+		// 	},
+		// 	_post: function(req, res) {
+		// 		req.bobjekt['new_field'] = "new_value"
+		// 		return when.resolve()
+		// 	}
+		// }
 	}
 	/*,
 	"/v1/classes/person/objects/:objectUid": {
