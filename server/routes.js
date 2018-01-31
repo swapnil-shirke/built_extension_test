@@ -125,7 +125,7 @@ module.exports = {
 	"/v1/classes/person/objects": {
 		GET : {
 			_pre : function(req, res) {
-				req.logger.log("Call hit from hooks in object GET : " + JSON.stringify(req.bobjekt.data))
+				req.logger.log("Call hit from hooks in object GET : ")
 				return this.resSuccess(req, res, "Success")
 			}
 		}
