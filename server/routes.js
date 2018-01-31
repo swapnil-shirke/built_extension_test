@@ -126,7 +126,7 @@ module.exports = {
 		GET : {
 			_pre : function(req, res) {
 				req.logger.log("Call hit from hooks in object GET")
-				return when.resolve()
+				return this.resSuccess(req, res)
 			}
 		},
 		POST: {
