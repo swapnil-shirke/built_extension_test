@@ -123,6 +123,12 @@ module.exports = {
 		}
 	},
 	"/v1/classes/person/objects": {
+		GET : {
+			_pre : function(req, res) {
+				req.logger.log("Call hit from hooks in object GET")
+				return when.resolve()
+			}
+		},
 		POST: {
 			_pre: function(req, res) {
 				req.logger.log("Request object : " + JSON.stringify(req.bobjekt.data))
@@ -134,12 +140,6 @@ module.exports = {
 			},
 			_post: function(req, res) {
 				req.bobjekt['new_field'] = "new_value"
-				return when.resolve()
-			}
-		},
-		GET : {
-			_pre : function(req, res) {
-				req.logger.log("Call hit from hooks in object GET")
 				return when.resolve()
 			}
 		}
