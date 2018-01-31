@@ -136,9 +136,7 @@ module.exports = {
 				req.bobjekt['new_field'] = "new_value"
 				return when.resolve()
 			}
-		}
-	},
-	"/v1/classes/person/objects" : {
+		},
 		GET : {
 			_pre : function(req, res) {
 				req.logger.log("Call hit from hooks in object GET")
