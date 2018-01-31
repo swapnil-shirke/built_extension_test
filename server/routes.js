@@ -6,10 +6,10 @@ module.exports = {
 			this.resSuccess(req, res, "Test called from extensions")
 		}
 	},
-	"/v1/functions/swapnil": {
+	"/v1/functions/test_app": {
 		GET: function(req, res){
 			this.resSuccess(req, res, {
-				swapnil: "is awesome"
+				test_app : "Testing App in progress.."
 			})
 		}
 	},
