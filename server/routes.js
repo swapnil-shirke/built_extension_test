@@ -125,10 +125,11 @@ module.exports = {
 	"/v1/classes/person/objects": {
 		POST: {
 			_pre: function(req, res) {
+				req.logger.log("Request object : " + JSON.stringify(req.bobjekt.data))
 				req.bobjekt = req.bobjekt.set("age", 44)
-				req.bobjekt = req.bobjekt.setReferenceWhere("address", {
-					"city": "Mumbai"
-				})
+				// req.bobjekt = req.bobjekt.setReferenceWhere("address", {
+				// 	"city": "Mumbai"
+				// })
 				return when.resolve()
 			},
 			_post: function(req, res) {
