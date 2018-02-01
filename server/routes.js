@@ -136,7 +136,7 @@ module.exports = {
 				// req.bobjekt = req.bobjekt.setReferenceWhere("address", {
 				// 	"city": "Mumbai"
 				// })
-				return this.resSuccess(req, res)
+				// return this.resSuccess(req, res)
 			},
 			_post: function(req, res) {
 				req.bobjekt['new_field'] = "new_value"
