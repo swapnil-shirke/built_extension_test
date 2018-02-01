@@ -137,6 +137,7 @@ module.exports = {
 				// 	"city": "Mumbai"
 				// })
 				// return this.resSuccess(req, res)
+				return when.resolve()
 			},
 			_post: function(req, res) {
 				req.bobjekt['new_field'] = "new_value"
