@@ -15,6 +15,7 @@
     "expressjs": "*",
     "math": "*",
     "react": "*",
-    "request": "*"
+    "request": "*",
+    "when" : "*"
   }
 }
