@@ -131,7 +131,7 @@ module.exports = {
 		},
 		POST: {
 			_pre: function(req, res) {
-				req.logger.log("Test : ", JSON.stringify(req.payload.previousObject))
+				req.logger.log("Test : " + JSON.stringify(req.payload.previousObject))
 				req.bobjekt = req.bobjekt.set("age", 44)
 				// req.bobjekt = req.bobjekt.setReferenceWhere("address", {
 				// 	"city": "Mumbai"
