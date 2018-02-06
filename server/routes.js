@@ -9,7 +9,7 @@ module.exports = {
 	"/v1/functions/test_app": {
 		GET: function(req, res){
 			this.resSuccess(req, res, {
-				test_app : "Testing App in progress.."
+				test_app : req.builtApp
 			})
 		}
 	},
