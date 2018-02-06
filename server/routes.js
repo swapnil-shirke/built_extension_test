@@ -123,6 +123,14 @@ module.exports = {
 		}
 	},
 	"/v1/classes/person/objects": {
+		"/:objectuid" : {
+			GET : {
+				_pre : function(req, res) {
+					req.logger.log("Calling single object hook in pre")
+					return this.resSuccess(req, res)
+				}
+			}
+		},
 		GET : {
 			_pre : function(req, res) {
 				req.logger.log("Call hit from hooks in object GET : ")
@@ -133,13 +141,12 @@ module.exports = {
 			_pre: function(req, res) {
 				req.logger.log("Test")
 				req.bobjekt = req.bobjekt.set("age", 54)
-
+				
 				req.logger.log(req.bobjekt)
 				
 				return this.resSuccess(req, res)
 			},
 			_post: function(req, res) {
-				req.bobjekt['address'] = "Virar"
 				return this.resSuccess(req, res)
 			}
 		}
