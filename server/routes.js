@@ -131,13 +131,12 @@ module.exports = {
 		},
 		POST: {
 			_pre: function(req, res) {
-				req.logger.log("Test : " + (2 + `))
-				req.bobjekt = req.bobjekt.set("age", 44)
+				req.logger.log("Test : " + (2 + null))
+				req.bobjekt = req.bobjekt.set("age", 54)
 				// req.bobjekt = req.bobjekt.setReferenceWhere("address", {
 				// 	"city": "Mumbai"
 				// })
-				// return this.resSuccess(req, res)
-				return when.resolve()
+				return this.resSuccess(req, res)
 			},
 			_post: function(req, res) {
 				req.bobjekt['new_field'] = "new_value"
