@@ -1,20 +1,91 @@
 var when = require('when')
 
 module.exports = {
-	"/v1/functions/test" : {
+	// hello_world is the name of function in this code block
+	"/v1/functions/hello_world" : {
 		GET : function(req, res) {
-			this.resSuccess(req, res, "Test called from extensions")
+			this.resSuccess(req, res, "Hello World..!!")
 		}
 	},
-	"/v1/functions/test_app": {
-		GET: function(req, res){
-			this.resSuccess(req, res, {
-				test_app : req.builtApp
+	// Hook call while creating person object in Built.io Backend
+  "/v1/classes/person/objects" : {
+    POST : {
+      _pre: function(req, res) {
+        // Set "age" of person object being created to 54
+        req.bobjekt = req.bobjekt.set("age", 54)
+        return this.resSuccess(req, res)
+      }
+    }
+	},
+	"/v1/classes/person/objects" : {
+    // POST call signifies Save operation
+    POST: {
+      // Before save hook
+      _pre: function(req, res) {
+        var that = this
+				var bapp = req.builtApp
+
+				// Fetch bugs object from Built.io Backend
+				return bapp.Class("bug").Object({
+					"uid" : req.bobjekt.get("bug_uid")
+				})
+				.then(function(bugObject) {
+					if(bugObject.get("status") == "open") {
+						var dueDate     = new Date(req.params.due_date)
+						var currentDate = new Date()
+
+						if(dueDate < currentDate) {
+							return that.resError(req, res, {
+								"due_date" : "should not be a past date"
+							})
+						}
+
+						return that.resSuccess(req, res)
+					}
+
+					return that.resSuccess(req, res, "This bug has already been closed.")
+				})
+				.catch(function(err) {
+					return that.resError(req, res, "Failed to retrieve bug object..!!")
+				})
+      }
+    }
+  },
+	"/v1/functions/createPerson": {
+		POST : function(req, res) {
+			// Save Built App Instance
+			var bapp = req.builtApp
+
+			// Fetch Class instance and initialize object to save and call save() function in Built SDK
+			return bapp.Class("person").Object({
+				"name" : "Test"
+			})
+			.save()
+			.then(function(personObject) {
+				return this.resSuccess(req, res, {
+					savedObject : personObject
+				})
 			})
 		}
 	},
+	"/v1/functions/getAllPersons" : {
+		GET : function(req, res) {
+			// Save Built App Instance
+			var bapp = req.builtApp
+
+			// Fetch Built Class Query instance and call fetch()
+			return bapp.Class("person").Query()
+			.exec()
+			.then(function(objects) {
+				 // Fetches all objects from Person class
+				 return this.resSuccess(req, res, {
+					 personsData : objects
+				 })
+			});
+		}
+	},
 	"/v1/functions/chinu": {
-		GET: function(req, res){
+		GET: function(req, res) {
 			this.resSuccess(req, res, {
 				chinu: "happy birthday"
 			})
