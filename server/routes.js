@@ -53,6 +53,7 @@ module.exports = {
   },
 	"/v1/functions/createPerson": {
 		POST : function(req, res) {
+			var that = this
 			// Save Built App Instance
 			var bapp = req.builtApp
 
@@ -62,9 +63,13 @@ module.exports = {
 			})
 			.save()
 			.then(function(personObject) {
-				return this.resSuccess(req, res, {
+				return that.resSuccess(req, res, {
 					savedObject : personObject
 				})
+			})
+			.catch(function(err) {
+				req.logger.log(err)
+				return that.resError(req, res, err)
 			})
 		}
 	},
