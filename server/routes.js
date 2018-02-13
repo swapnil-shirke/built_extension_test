@@ -4,20 +4,19 @@ module.exports = {
 	// hello_world is the name of function in this code block
 	"/v1/functions/hello_world" : {
 		GET : function(req, res) {
-			this.resSuccess(req, res, "Hello World..!!")
+			return this.resSuccess(req, res, "Hello World..!!")
 		}
 	},
-	// Hook call while creating person object in Built.io Backend
+	// Hook call while fetching person objects from Built.io Backend
   "/v1/classes/person/objects" : {
-    POST : {
+    GET : {
       _pre: function(req, res) {
-        // Set "age" of person object being created to 54
-        req.bobjekt = req.bobjekt.set("age", 54)
+        req.bobjekt = req.bobjekt.where("age", 54)
         return this.resSuccess(req, res)
       }
     }
 	},
-	"/v1/classes/person/objects" : {
+	"/v1/classes/bug/objects" : {
     // POST call signifies Save operation
     POST: {
       // Before save hook
@@ -26,20 +25,21 @@ module.exports = {
 				var bapp = req.builtApp
 
 				// Fetch bugs object from Built.io Backend
-				return bapp.Class("bug").Object({
+				return bapp.Class().Object({
 					"uid" : req.bobjekt.get("bug_uid")
 				})
 				.then(function(bugObject) {
+          // Checks for status of bug object retrieved
 					if(bugObject.get("status") == "open") {
 						var dueDate     = new Date(req.params.due_date)
 						var currentDate = new Date()
 
+            // Compare due_date received from req.params to update bug due_date
 						if(dueDate < currentDate) {
 							return that.resError(req, res, {
 								"due_date" : "should not be a past date"
 							})
 						}
-
 						return that.resSuccess(req, res)
 					}
 
@@ -51,20 +51,31 @@ module.exports = {
       }
     }
   },
+	// Hook call while creating person object in Built.io Backend
+  "/v1/classes/person/objects" : {
+    POST : {
+      _pre: function(req, res) {
+        // Set "age" of person object being created to 54
+        req.bobjekt = req.bobjekt.set("age", 54)
+        return this.resSuccess(req, res)
+      }
+    }
+	},
 	"/v1/functions/createPerson": {
 		POST : function(req, res) {
 			var that = this
 			// Save Built App Instance
 			var bapp = req.builtApp
 
-			// Fetch Class instance and initialize object to save and call save() function in Built SDK
+			// Fetch Class instance and initialize object to save and call save()
+			// function in Built SDK
 			return bapp.Class("person").Object({
 				"name" : "Test"
 			})
 			.save()
 			.then(function(personObject) {
 				return that.resSuccess(req, res, {
-					savedObject : personObject
+					savedObject : personObject.toJSON()
 				})
 			})
 			.catch(function(err) {
@@ -77,16 +88,21 @@ module.exports = {
 		GET : function(req, res) {
 			// Save Built App Instance
 			var bapp = req.builtApp
+			var that = this
 
 			// Fetch Built Class Query instance and call fetch()
 			return bapp.Class("person").Query()
 			.exec()
 			.then(function(objects) {
 				 // Fetches all objects from Person class
-				 return this.resSuccess(req, res, {
+				 return that.resSuccess(req, res, {
 					 personsData : objects
 				 })
-			});
+			})
+			.catch(function(err) {
+				req.logger.log(err)
+				return that.resError(req, res, err)
+			})
 		}
 	},
 	"/v1/functions/chinu": {
@@ -131,21 +147,6 @@ module.exports = {
 		PUT: function(req, res){
 			this.resSuccess(req, res, {
 				working: "PUT call"
-			})
-		}
-	},
-	"/v1/functions/createPerson": {
-		POST: function(req, res){
-			req.logger.log("request payload", req.payload)
-			req.logger.log("App options", req.builtApp.options)
-			var that = this
-			req.builtApp.Class('person').Object(req.payload.data)
-			.save()
-			.then(function(person){
-				return that.resSuccess(req, res, person)
-			})
-			.catch(function(err){
-				console.log(err, "=========")
 			})
 		}
 	},
