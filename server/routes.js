@@ -1,7 +1,7 @@
 var when = require('when')
 
 module.exports = {
-	// hello_world is the name of function in this code block
+	// hello_world is the name of function in this code block.
 	"/v1/functions/hello_world" : {
 		GET : function(req, res) {
 			return this.resSuccess(req, res, "Hello World..!!")
