@@ -17,37 +17,39 @@ module.exports = {
     }
 	},
 	"/v1/classes/bug/objects" : {
-    // POST call signifies Save operation
-    POST: {
+		GET : {
+			_pre : function(req, res) {
+				req.logger.log("GET for bugs")
+				return this.resSuccess(req, res)
+			}
+		}
+	},
+	"/v1/classes/bug/objects/:objectuid" : {
+    // PUT call signifies Save operation
+    PUT: {
       // Before save hook
       _pre: function(req, res) {
         var that = this
 				var bapp = req.builtApp
 
+				if(req.bobjekt.get("status") == "closed") {
+					return that.resError(req, res, {
+						"error" : "Bug status is already!"
+					})
+				}
+
 				// Fetch bugs object from Built.io Backend
-				return bapp.Class().Object({
-					"uid" : req.bobjekt.get("bug_uid")
-				})
-				.then(function(bugObject) {
-          // Checks for status of bug object retrieved
-					if(bugObject.get("status") == "open") {
-						var dueDate     = new Date(req.params.due_date)
-						var currentDate = new Date()
+				var dueDate     = new Date(req.payload.due_date)
+				var currentDate = new Date()
 
-            // Compare due_date received from req.params to update bug due_date
-						if(dueDate < currentDate) {
-							return that.resError(req, res, {
-								"due_date" : "should not be a past date"
-							})
-						}
-						return that.resSuccess(req, res)
-					}
+				// Compare due_date received from req.payload to update bug due_date
+				if(dueDate < currentDate) {
+					return that.resError(req, res, {
+						"due_date" : "should not be a past date"
+					})
+				}
 
-					return that.resSuccess(req, res, "This bug has already been closed.")
-				})
-				.catch(function(err) {
-					return that.resError(req, res, "Failed to retrieve bug object..!!")
-				})
+				return that.resSuccess(req, res)
       }
     }
   },
@@ -105,48 +107,10 @@ module.exports = {
 			})
 		}
 	},
-	"/v1/functions/chinu": {
-		GET: function(req, res) {
-			this.resSuccess(req, res, {
-				chinu: "happy birthday"
-			})
-		}
-	},
 	"/v1/functions/smita": {
 		GET: function(req, res){
 			this.resSuccess(req, res, {
 				smita: "is awesome"
-			})
-		}
-	},
-	"/v1/functions/altamash": {
-		GET: function(req, res){
-			this.resSuccess(req, res, {
-				altamash: "is aagau :D"
-			})
-		}
-	},
-	"/v1/functions/rohini": {
-		GET: function(req, res){
-			this.resSuccess(req, res, {
-				Rohini: "is aagau :D"
-			})
-		}
-	},
-	"/v1/functions/abhijeet": {
-		GET: function(req, res){
-			this.resSuccess(req, res, {
-				working: "GET call"
-			})
-		},
-		POST: function(req, res){
-			this.resSuccess(req, res, {
-				working: "Post call"
-			})
-		},
-		PUT: function(req, res){
-			this.resSuccess(req, res, {
-				working: "PUT call"
 			})
 		}
 	},
