@@ -4,7 +4,7 @@ var Built = require('built-extension-sdk')
 var app = Built.App('blt553c6fce2d42cf10')
 .setHost("stag-api.built.io")
 .setProtocol("https")
-.setMasterKey('blt5c486e7539e4dacc')
+.setMasterKey('blt4eacfe5b25245d5e')
 
 // 574df6c8fb2034b1603d792e8e2922268779c456 - access token
 // bltc88f3d42ad8a728c - secret key
