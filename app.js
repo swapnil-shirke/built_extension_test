@@ -1,10 +1,10 @@
 var Built = require('built-extension-sdk')
 
 // Initiate application
-var app = Built.App('bltbd2542510c6b8afc')
+var app = Built.App('bltb5d916c1a054bdd0')
 .setHost("api.built.io")
 .setProtocol("https")
-.setMasterKey('test/case no')
+.setMasterKey('blteb8fbf42f6a8f225')
 
 // 574df6c8fb2034b1603d792e8e2922268779c456 - access token
 // bltc88f3d42ad8a728c - secret key
