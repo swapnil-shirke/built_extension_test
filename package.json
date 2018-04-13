@@ -16,6 +16,7 @@
     "request": "*",
     "built-extension-sdk": "1.0.1",
     "when": "*",
-    "lodash": "*"
+    "lodash": "*",
+    "rocksdb": "*"
   }
 }
