@@ -6,7 +6,7 @@ module.exports = {
 		GET : function(req, res) {
 			return this.resSuccess(req, res, "Hello World..!!")
 		}
-	},
+	}}
 	// Hook call while fetching person objects from Built.io Backend
   "/classes/person/objects" : {
     GET : {
