@@ -8,7 +8,7 @@ module.exports = {
 		}
 	},
 	// Hook call while fetching person objects from Built.io Backend
-  "/v1/classes/person/objects" : {
+  "/classes/person/objects" : {
     GET : {
       _pre: function(req, res) {
         req.bobjekt = req.bobjekt.where("age", 54)
