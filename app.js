@@ -9,7 +9,7 @@ var app = Built.App('blt48a53e6bc14e406f')
 // 574df6c8fb2034b1603d792e8e2922268779c456 - access token
 // bltc88f3d42ad8a728c - secret key
 // blt_ext_default_test - extension key
-// web hook url - https://test-stag-api.built.io/v1/extensions/blt_ext_default/redeploy?application_api_key=bltc4f7ed1f03053fe8
+// web hook url - https:https://manage.built.io/v1/extensions/blt_ext_default/redeploy?application_api_key=blt0d68e0f590faadf3
 
 var extensionSDK = app.Extension({
 	extension_key  : 'blt_ext_default',
