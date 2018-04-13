@@ -4,7 +4,7 @@ module.exports = {
 	// hello_world is the name of function in this code block.
 	"/v1/functions/hello_world" : {
 		GET : function(req, res) {
-			return this.resSuccess(req, res, "Hello World..!!")
+			return this.resSuccess(req, res, "Hello World..yo yo!!")
 		}
 	},
 	// Hook call while fetching person objects from Built.io Backend
